@@ -3,7 +3,6 @@ package cl.phobos.pets
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -12,8 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cl.phobos.pets.core.routes.Routes
+import cl.phobos.pets.modules.addimages.AddImagesScreen
 import cl.phobos.pets.modules.addpet.ui.AddPetScreen
-import cl.phobos.pets.modules.addpet.ui.AddPetViewModel
 import cl.phobos.pets.modules.home.ui.HomeScreen
 import cl.phobos.pets.ui.theme.PetsTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +38,10 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(navController = navController)
                         }
                         composable(route = Routes.AddPetRoute.route){
-                            AddPetScreen()
+                            AddPetScreen(navController = navController)
+                        }
+                        composable(route = Routes.AddImagesRoute.route){
+                            AddImagesScreen()
                         }
                     }
                 }

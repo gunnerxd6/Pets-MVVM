@@ -9,23 +9,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import cl.phobos.pets.core.ui.components.AppTopBar
 
 @Composable
-fun AddPetScreen() {
+fun AddPetScreen(navController: NavHostController) {
 
-    Scaffold(topBar = { AppTopBar(title = "Add new pet") }, content = { Content(it) })
+    Scaffold(
+        topBar = { AppTopBar(title = "Add new pet") },
+        content = { Content(it, navController = navController) })
 
 }
 
 @Composable
-fun Content(paddingValues: PaddingValues, viewModel: AddPetViewModel = hiltViewModel()) {
+fun Content(
+    paddingValues: PaddingValues,
+    viewModel: AddPetViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
     val activity = LocalContext.current
     val name: String by viewModel.name.observeAsState(initial = "")
     val date: String by viewModel.date.observeAsState(initial = "")
@@ -79,8 +84,7 @@ fun Content(paddingValues: PaddingValues, viewModel: AddPetViewModel = hiltViewM
             value = race,
             onValueChange = { viewModel.onRaceChanged(it) },
             label = { Text(text = "Race") })
-        Button(
-            onClick = { /*TODO*/ }) {
+        Button(onClick = { viewModel.navigateToAddImages(navController = navController) }) {
             Text("Next")
         }
 

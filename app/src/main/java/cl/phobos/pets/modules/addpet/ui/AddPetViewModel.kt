@@ -13,6 +13,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
+import cl.phobos.pets.core.routes.Routes
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
@@ -80,6 +82,10 @@ class AddPetViewModel @Inject constructor():ViewModel() {
             }, year, month, day
         ).show()
 
+    }
+
+    fun navigateToAddImages(navController: NavHostController) {
+        navController.navigate(Routes.AddImagesRoute.route)
     }
 
 }
